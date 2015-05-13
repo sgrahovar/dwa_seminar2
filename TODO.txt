@@ -1,0 +1,21 @@
+Todo list:
+
+1) Register
+	- with email
+	- with facebook
+	- with twitter (?)
+	- with google plus (?)
+
+2) Login
+	- with email
+	- with facebook
+	- with twitter (?)
+	- with google plus (?)
+
+3) CRUD on Donations
+
+4) Add content on english
+
+5) Documentation
+
+6) 	
