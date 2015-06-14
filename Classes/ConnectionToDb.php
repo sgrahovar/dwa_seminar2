@@ -2,7 +2,7 @@
 
 class ConnectionToDb
 {	
-private $connection;
+	private $connection;
 	private $host = '127.0.0.1';
 	private $dbname = 'seminar2';
 	private $user = "root";
@@ -12,21 +12,30 @@ private $connection;
 	{	
 		try
 		{
-			$this->connection = new PDO('mysql:host='.$this->host.';dbname='.$this->dbname, $this->user, $this->pass);
+			$this->connection = new PDO('mysql:host='.$this->host.';dbname='.$this->dbname.';charset=utf8;', $this->user, $this->pass);
+			$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} 
 		catch (PDOException $e) 
 		{
 		    echo 'Connection failed: ' . $e->getMessage();
 		    exit;
 		}
-		echo 'Created.</br>';
 	}
 
 	public function __destruct()
 	{
 		$this->connection = null;
-		echo 'Destroyed.</br>';
 	}
+
+	
+	public function getInstance()
+	{
+       if ($this->connection instanceof PDO) {
+            return $this->connection;
+       }		
+	}
+	
+
 }
 
 ?>

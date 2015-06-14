@@ -1,81 +1,79 @@
 <div id="donationList">
-	<div class="item col-md-4 col-sm-6">
-		<div class="itemImage">
-			<img src="http://img03.deviantart.net/0b66/i/2015/120/c/3/the_dead_zone_by_bwiti-d8rp94x.jpg" class="img-responsive">
-		</div>
-		<div class="itemInfo">
+	<div id="donationListContent">
+<?php
 
-			<div class="itemProgress progress">
-				<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-					20%
+$donation = new Donation();
+
+$allDonations = $donation->getAllDonations();
+
+foreach ($allDonations as $d) 
+{	
+	if($d['currentAmount'] != 0)
+	{
+		$percent = (int)($d['currentAmount'] * 100 / $d['targetAmount']);
+		if($percent > 100) $percent_width = 100;
+		else $percent_width = $percent;
+	}
+
+	else
+	{
+		$percent = 0;
+		$percent_width = 0;
+	}
+
+	$date1 = strtotime($d['endDate']);
+
+	echo '
+		<div class="item col-md-4 col-sm-6">
+			<div class="thumbnail">
+				<div class="itemImage">
+					<img src="Images/donationImages/'.$d['Picture_url'].'.jpg" class="img-responsive">
+				</div>
+				<div class="itemInfo">
+					<div class="itemProgress progress">
+						<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="'.$percent.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$percent_width.'%;">
+							'.$percent.'%
+						</div>
+					</div>
+
+					<h3>'.number_format($d['targetAmount'], 2, '.', ',').'</h3>
+					<p>'. date("d.m.Y", $date1) .'</p>
+
+					<a href="index.php?page=showDonation&id='.$d['ID'].'"><h2>'.$d['Name_'.$language].'</h2></a>
+
 				</div>
 			</div>
+		</div> 
+		';
+}
 
-			<h3>$15,113</h3>
-			<p>5 days left</p>
-
-			<h2>Naslov</h2>
-
-		</div>
-	</div> 
-
-	<div class="item col-md-4 col-sm-6">
-		<div class="itemImage">
-			<img src="http://fc02.deviantart.net/fs70/f/2012/327/a/e/caldera_by_jcbarquet-d4ij2rp.jpg" class="img-responsive">
-		</div>
-		<div class="itemInfo">
-
-			<div class="itemProgress progress">
-				<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-					50%
-				</div>
-			</div>
-
-			<h3>$15,113</h3>
-			<p>5 days left</p>
-
-			<h2>Naslov</h2>
-
-		</div>
-	</div> 
-
-	<div class="item col-md-4 col-sm-6">
-		<div class="itemImage">
-			<img src="http://fc02.deviantart.net/fs71/i/2012/194/0/a/bugatti_veyron_by_pingallery-d574id9.jpg" class="img-responsive">
-		</div>
-		<div class="itemInfo">
-
-			<div class="itemProgress progress">
-				<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-					80%
-				</div>
-			</div>
-
-			<h3>$15,113</h3>
-			<p>5 days left</p>
-
-			<h2>Naslov</h2>
-
-		</div>
-	</div> 
-
-	<div class="item col-md-4 col-sm-6">
-		<div class="itemImage">
-			<img src="http://fc06.deviantart.net/fs70/i/2012/076/8/8/chromatism_by_jenovah_art-d2un9p6.jpg" class="img-responsive">
-		</div>
-		<div class="itemInfo">
-
-			<div class="itemProgress progress">
-				<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-					100%
-				</div>
-			</div>
-
-			<h3>$15,113</h3>
-			<p>5 days left</p>
-
-			<h2>Naslov</h2>
-
-		</div>
+?>
 	</div>
+<!--
+	<div id="donationListPagination" class="col-sm-12" style="text-align: center;">
+		<nav>
+			<ul class="pagination" id="customPagination">
+				<li>
+					<a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li>
+					<a href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+-->
+	<div id="donationListPagination" class="col-sm-12" style="text-align: center; margin-top: 20px;">
+    	<ul id="customPagination" class="pagination-sm"></ul>
+	</div>
+
 </div>

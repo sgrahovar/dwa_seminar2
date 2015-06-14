@@ -1,5 +1,5 @@
+<div id="login">
 <?php
-
 
 if($_GET['page'] == 'login')
 {
@@ -12,13 +12,15 @@ if($_GET['page'] == 'login')
 				<form method="post" action="">
 					<div class="form-group">
 						<label for="inputEmail">Email address</label>
-						<input type="email" class="form-control inputTextArea" id="inputEmail" placeholder="Enter email">
+						<input type="email" class="form-control inputTextArea" id="inputEmail" placeholder="Enter email" name="mail">
 					</div>
 					<div class="form-group">
 						<label for="inputPassword">Password</label>
-						<input type="password" class="form-control inputTextArea" id="inputPassword" placeholder="Password">
+						<input type="password" class="form-control inputTextArea" id="inputPassword" placeholder="Password" name="password">
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
+					<div class="form-group">
+						<button type="submit" class="btn btn-default" name="loginEmailButton">Submit</button>
+					</div>
 				</form>
 			</div>
 			';
@@ -26,7 +28,7 @@ if($_GET['page'] == 'login')
 			break;
 
 		case 'facebook':
-			echo '<p style="color: white;">Login with Facebook</p>';
+
 			break;
 
 		case 'googleplus':
@@ -34,10 +36,23 @@ if($_GET['page'] == 'login')
 			break;
 
 		default:
-			echo '<p style="color: white;">Default action.</p>';
+			echo '<p style="color: white;">Default action on $_GET[\'method\'] switch case</p>';
 			break;
 	}
 }
 
+if(isset($_POST['loginEmailButton']))
+{
+	$loginData = array(
+			'email' => $_POST['mail'],
+			'password' => $_POST['password']
+			);	
+
+	$user = new User();
+
+	$user->loginUser($loginData);
+}
+
 
 ?>
+</div>
